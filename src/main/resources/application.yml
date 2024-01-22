@@ -1,0 +1,28 @@
+spring:
+  datasource:
+    url: jdbc:as400://192.168.1.33/B2059bbw
+    username: CSCP
+    password: CSCP
+    driver-class-name: com.ibm.as400.access.AS400JDBCDriver
+
+  datasource-ihs:
+    url: jdbc:mysql://192.168.1.141:3306/ihsdb
+    username: root
+    password: notes
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      naming_strategy: org.hibernate.cfg.EJB3NamingStrategy
+      ddl-auto: update
+      connection:
+        release_mode: after_transaction
+      current_session_context_class: jta
+      c3p0:
+        min_size: 1
+        max_size: 10
+        timeout: 1800
+        max_statements: 50
+
+    show-sql: false
