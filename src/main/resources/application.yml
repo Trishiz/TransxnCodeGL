@@ -5,6 +5,12 @@ spring:
     password: CSCP
     driver-class-name: com.ibm.as400.access.AS400JDBCDriver
 
+    hikari:
+      connection-test-query: values 1
+
+    jpa:
+      database-platform: org.hibernate.dialect.DB2400Dialect
+
   datasource-ihs:
     url: jdbc:mysql://192.168.1.141:3306/ihsdb
     username: root
@@ -13,16 +19,26 @@ spring:
 
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
-    hibernate:
-      naming_strategy: org.hibernate.cfg.EJB3NamingStrategy
-      ddl-auto: update
-      connection:
-        release_mode: after_transaction
-      current_session_context_class: jta
-      c3p0:
-        min_size: 1
-        max_size: 10
-        timeout: 1800
-        max_statements: 50
+  connection:
+    release_mode: after_transaction
+    current_session_context_class: jta
+    c3p0:
+
+    Fbeq:
+      query:
+        transCode: SELECT SATCO AS transactionCode, SAPRVF AS advise,drCr,transactionCodeDescription,maximum,minimum FROM SAPF where dateCreated >= '{lastRunTime}'
+        GLs: SELECT {} FROM {} where dateCreated >= '{lastRunTime}'
+        lastRunTime: Select * from LastRunTime ORDER BY lastTrans DESC LIMIT 1
+
+Ihs:
+  query:
+    dataTransfertc: INSERT INTO TransactionType(transactionCode,transactionCodeDescription,advise,drCr,maximum,minimum) VALUES(?,?,?,?,?,?)
+    dataTransfergl: INSERT INTO {}() VALUES(?)
+    SQL_INSERT: INSERT INTO lastTime (timestamp) VALUES (?)
+
+    min_size: 1
+    max_size: 10
+    timeout: 1800
+    max_statements: 50
 
     show-sql: false

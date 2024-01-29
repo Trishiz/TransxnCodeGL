@@ -24,11 +24,13 @@ public class IHSConnImpl implements IHSConn {
     private String password;
 
 
+
+
     public Connection openConn() throws Exception {
 
         if (conn == null || conn.isClosed()) {
             try {
-                log.debug("Connecting to : {},{},{}",url,username,password);
+                log.debug("Connecting to : {},{},{}",url,username, password);
                 Class.forName(jdbcClassName);
                 conn= DriverManager.getConnection(url, username, password);
                 return conn;
