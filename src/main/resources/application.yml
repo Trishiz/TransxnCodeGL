@@ -24,16 +24,14 @@ spring:
     current_session_context_class: jta
     c3p0:
 
-    Fbeq:
-      query:
-        transCode: SELECT SATCO AS transactionCode, SAPRVF AS advise,drCr,transactionCodeDescription,maximum,minimum FROM SAPF where dateCreated >= '{lastRunTime}'
-        GLs: SELECT {} FROM {} where dateCreated >= '{lastRunTime}'
-        lastRunTime: Select * from LastRunTime ORDER BY lastTrans DESC LIMIT 1
+Fbeq:
+  query:
+    transCode: SELECT SACTO AS transactionCode, SAPRVF AS advise,drCr,transactionCodeDescription,maximum,minimum FROM KFILNBS.SAPF where dateCreated >= '{lastRunTime}'
+    lastRunTime: Select * from LastRunTime ORDER BY lastTrans DESC LIMIT 1
 
 Ihs:
   query:
-    dataTransfertc: INSERT INTO TransactionType(transactionCode,transactionCodeDescription,advise,drCr,maximum,minimum) VALUES(?,?,?,?,?,?)
-    dataTransfergl: INSERT INTO {}() VALUES(?)
+    dataTransfer: INSERT INTO TransactionType(transactionCode,advise,drCr,transactionCodeDescription,maximum,minimum) VALUES(?,?,?,?,?,?)
     SQL_INSERT: INSERT INTO lastTime (timestamp) VALUES (?)
 
     min_size: 1

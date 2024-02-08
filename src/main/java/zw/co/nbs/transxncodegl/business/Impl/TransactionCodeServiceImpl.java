@@ -17,22 +17,22 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
-
+@Configuration
 @Service
 public class TransactionCodeServiceImpl implements TransactionCodeService {
     private final AtomicBoolean busyProgram = new AtomicBoolean(false);
     private final Logger LOGGER = LoggerFactory.getLogger(getClass().getName());
 
     @Value("${Fbeq.query.transCode}")
-    private String transcode;
+    private String transCode;
 
-    @Value("${ihs.query.dataTransfertc}")
-    private String dataTransfertc;
+    @Value("${Ihs.query.dataTransfer}")
+    private String dataTransfer;
 
-    @Value("${ihs.query.SQL_INSERT}")
+    @Value("${Ihs.query.SQL_INSERT}")
     private String sql_insert;
 
-    @Value("${Ihs.query.lastRunTime}")
+    @Value("${Fbeq.query.lastRunTime}")
     private String lastRunTime;
 
     private final FbeqConn fbeqConn;
@@ -43,7 +43,6 @@ public class TransactionCodeServiceImpl implements TransactionCodeService {
         this.ihsConn = context.getBean(IHSConn.class);
 
     }
-
     @Scheduled(cron = "*/30 * * * * *")
     public void manageTranscode() {
         LOGGER.info(".......");
@@ -76,7 +75,7 @@ public class TransactionCodeServiceImpl implements TransactionCodeService {
         String lastTime = getLastRunTime();
         LOGGER.info("last run time is " + lastTime);
 
-        String query = transcode.replace("{lastRunTime}", lastTime);
+        String query = transCode.replace("{lastRunTime}", lastTime);
         try {
             ResultSet rs = fbeqConn.executeQuery(query);
 
@@ -157,7 +156,7 @@ public class TransactionCodeServiceImpl implements TransactionCodeService {
         for (SAPF transcode : transactionCodeAccount) {
             try {
 
-                String SQL = dataTransfertc;
+                String SQL = dataTransfer;
                 Connection conn = ihsConn.openConn();
                 PreparedStatement preparedStatement = conn.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
 

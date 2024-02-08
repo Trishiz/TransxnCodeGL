@@ -4,7 +4,7 @@
 //
 //import java.util.List;
 //
-//public interface GLService {
+//public interface interfaceGLService {
 //    List<GLAccount> retrieveNewGL();
 //    void getCurrentTimestamp();
 //}
